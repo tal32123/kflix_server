@@ -10,14 +10,14 @@ export class VideosService {
         this.metadataService.createMetadata();
         return 'uploaded';
       }
-      getVideo(id: string): string {
+      getVideoMetadata(id: string): Video {
         let videoMD : Video= this.metadataService.getVideoMetadatabyId(id);
         videoMD.views++;
         this.metadataService.updateMetadata(id, videoMD);
-        //todo: get video from store
-
-        return 'uploaded';
+        return videoMD;
       }
+
+      
 
       getTopVideos(){
         let videosMd: Video[] = this.metadataService.getTopVideosMetadata()
