@@ -4,4 +4,5 @@ export interface Video {
     uploadedUsername: string;
     locationURL: string;
     views: number;
+    title: string;
 }
