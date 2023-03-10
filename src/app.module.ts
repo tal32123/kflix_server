@@ -5,10 +5,22 @@ import { VideosController } from './videos/videos.controller';
 import { VideosService } from './videos/videos.service';
 import { MetadataService } from './metadata/metadata.service';
 import { CacheService } from './cache/cache.service';
+import { IDataServices } from './idata-services/idata-services';
+import { MockDataServices } from './mock-data-services/mock-data-services';
 
 @Module({
   imports: [],
   controllers: [AppController, VideosController],
-  providers: [AppService, VideosService, MetadataService, CacheService],
+  providers: [AppService, 
+    VideosService, 
+    MetadataService, 
+    CacheService,
+    {
+      provide: IDataServices,
+      useClass: MockDataServices,
+    },
+  ],
+  exports: [IDataServices],
+
 })
 export class AppModule {}

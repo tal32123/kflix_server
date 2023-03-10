@@ -4,23 +4,31 @@ import { Video } from 'src/video/video.interface';
 
 @Injectable()
 export class VideosService {
-    constructor(private readonly metadataService: MetadataService){}
 
-    uploadVideo(): string {
-        this.metadataService.createMetadata();
+    constructor(private readonly metadataService: MetadataService){
+        
+    }
+
+    async uploadVideo(video: Video): Promise<string> {
+        await this.metadataService.createMetadata(video);
         return 'uploaded';
       }
-      getVideoMetadata(id: string): Video {
-        let videoMD : Video= this.metadataService.getVideoMetadatabyId(id);
+
+      /*
+      * Get a specific video's metadata, assuming this is only used for watching videos, so also increasing views
+      */
+      async getVideoMetadata(id: string): Promise<Video> {
+        let videoMD : Video= await this.metadataService.getVideoMetadatabyId(id);
         videoMD.views++;
-        this.metadataService.updateMetadata(id, videoMD);
+        await this.metadataService.updateMetadata(id, videoMD);
         return videoMD;
       }
 
       
 
-      getTopVideos(){
-        let videosMd: Video[] = this.metadataService.getTopVideosMetadata()
+      async getTopVideos(){
+        let videosMd: Video[] = await this.metadataService.getTopVideosMetadata();
+        return videosMd;
       }
 
 }

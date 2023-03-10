@@ -10,19 +10,27 @@ export class VideosController {
     constructor(
         private readonly videosService: VideosService
         ) {
-            
+
         }
 
-    @Get()
-    getVideo() {
-        return this.videosService.uploadVideo();
+    @Get('video/:id')
+    async getVideo(@Param() param) {
+        console.log('wrong place');
+        return await this.videosService.getVideoMetadata(param.id);
     }
-
+    @Get('getTopVideos')
+    async getTopVideos() {
+        try {
+            return await this.videosService.getTopVideos();
+        } catch (error) {
+            console.log(error);
+        }
+    }
     @Get('stream/:id')
     @Header('Accept-Ranges', 'bytes')
     @Header('Content-Type', 'video/mp4')
     asyncGetVideoStream(@Param('id') id: string, @Headers() headers, @Res() res: Response){
-        const videoPath = `assets/${id}.mp4`;
+        const videoPath = `assets/videos/${id}.mp4`;
         const { size } = statSync(videoPath);
         const videoRange = headers.range;
         if (videoRange) {
@@ -47,7 +55,7 @@ export class VideosController {
     }
 
     @Get()
-    uploadVideo() {
-        return this.videosService.uploadVideo();
+    async uploadVideo(video) {
+        return await this.videosService.uploadVideo(video);
     }
 }
