@@ -1,7 +1,9 @@
-import { Controller, Post, Get, Header, Param, Res, Headers, HttpStatus } from '@nestjs/common';
+import { Controller, Post, Get, Header, Param, Res, Headers, HttpStatus, UseInterceptors, UploadedFile, Req, Body } from '@nestjs/common';
 import { VideosService } from './videos.service';
 import { statSync, createReadStream } from 'fs';
 import { Response } from 'express';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { Video } from 'src/video/video.interface';
 
 @Controller('videos')
 export class VideosController {
@@ -54,8 +56,10 @@ export class VideosController {
         }
     }
 
-    @Get()
-    async uploadVideo(video) {
+    @Post('upload')
+    @UseInterceptors(FileInterceptor('file'))
+    async uploadVideo(@UploadedFile() file: Express.Multer.File,  @Body()video :Video)
+    {
         return await this.videosService.uploadVideo(video);
     }
 }
