@@ -25,7 +25,7 @@ export class VideosService {
       }
 
       
-
+      //Gets the videos with the most views
       async getTopVideos(){
         let videosMd: Video[] = await this.metadataService.getTopVideosMetadata();
         return videosMd;

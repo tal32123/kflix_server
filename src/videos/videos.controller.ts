@@ -60,6 +60,8 @@ export class VideosController {
     @UseInterceptors(FileInterceptor('file'))
     async uploadVideo(@UploadedFile() file: Express.Multer.File,  @Body()video :Video)
     {
+        //todo: store file metadata
+        this.videosService.uploadVideo(video);
         return await this.videosService.uploadVideo(video);
     }
 }

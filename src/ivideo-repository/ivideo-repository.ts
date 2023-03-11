@@ -12,7 +12,7 @@ export class IvideoRepository<T> implements IGenericRepository<T>{
         for(let i = 0; i < 40; i++){
             let dummyVideo : Video= {
                 id: `${i}`,
-                title: "my title",
+                title: `My Video ${i}`,
                 uploadedUsername: "anonymous",
                 views: Math.floor(Math.random() * 1000000),
                 uploadDate: dateString,
