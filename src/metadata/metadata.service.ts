@@ -16,11 +16,12 @@ export class MetadataService {
 
     const date = this.getDate();
     const topVideos: Video[] = await this.cacheService.getCache(date);
-    if (topVideos) {
+    if (topVideos && !topVideos?.some(video => video.id == data.id)) {
       topVideos.push(data);
-      this.cacheService.addOrUpdateCache(data.id, data)
       this.cacheService.addOrUpdateCache(date, topVideos);
     }
+    this.cacheService.addOrUpdateCache(data.id, data);
+
     return data;
   }
 
@@ -35,7 +36,7 @@ export class MetadataService {
           video = data;
         }
         return video;
-      })
+      });
       this.cacheService.addOrUpdateCache(date, topVideos);
     }
   }
