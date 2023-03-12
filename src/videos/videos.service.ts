@@ -1,7 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, HttpStatus } from '@nestjs/common';
 import { MetadataService } from 'src/metadata/metadata.service';
 import { Video } from 'src/video/video.interface';
 const { randomUUID } = require('crypto'); // Added in: node v14.17.0
+import { statSync, createReadStream } from 'fs';
 
 @Injectable()
 export class VideosService {
@@ -31,6 +32,7 @@ export class VideosService {
   * Get a specific video's metadata
   */
   async getVideoMetadata(id: string): Promise<Video> {
+
     let videoMD: Video = await this.metadataService.getVideoMetadatabyId(id);
     return videoMD;
   }
@@ -41,8 +43,35 @@ export class VideosService {
 
   //Gets the videos with the most views
   async getTopVideos() {
+
     let videosMd: Video[] = await this.metadataService.getTopVideosMetadata();
     return videosMd;
   }
 
+    streamVideo(video, headers, res){
+      
+    const videoPath = `assets/videos/${video.locationURL}`;
+
+    const { size } = statSync(videoPath);
+    const videoRange = headers.range;
+    if (videoRange) {
+      const parts = videoRange.replace(/bytes=/, "").split("-");
+      const start = parseInt(parts[0], 10);
+      const end = parts[1] ? parseInt(parts[1], 10) : size - 1;
+      const chunksize = (end - start) + 1;
+      const readStreamfile = createReadStream(videoPath, { start, end, highWaterMark: 60 });
+      const head = {
+        'Content-Range': `bytes ${start}-${end}/${size}`,
+        'Content-Length': chunksize,
+      };
+      res.writeHead(HttpStatus.PARTIAL_CONTENT, head); //206
+      readStreamfile.pipe(res);
+    } else {
+      const head = {
+        'Content-Length': size,
+      };
+      res.writeHead(HttpStatus.OK, head);//200
+      createReadStream(videoPath).pipe(res);
+    }
+    }
 }
