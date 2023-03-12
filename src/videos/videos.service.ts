@@ -28,15 +28,16 @@ export class VideosService {
   }
 
   /*
-  * Get a specific video's metadata, assuming this is only used for watching videos, so also increasing views
+  * Get a specific video's metadata
   */
   async getVideoMetadata(id: string): Promise<Video> {
     let videoMD: Video = await this.metadataService.getVideoMetadatabyId(id);
-    videoMD.views++;
-    await this.metadataService.updateMetadata(id, videoMD);
     return videoMD;
   }
-
+  async addView(id, data){
+    data.views++;
+    await this.metadataService.updateMetadata(id, data);
+  }
 
   //Gets the videos with the most views
   async getTopVideos() {

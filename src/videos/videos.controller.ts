@@ -19,7 +19,9 @@ export class VideosController {
 
   @Get('video/:id')
   async getVideo(@Param() param) {
-    return await this.videosService.getVideoMetadata(param.id);
+    let metadata = await this.videosService.getVideoMetadata(param.id);
+    this.videosService.addView(metadata.id, metadata);
+    return metadata;
   }
   @Get('getTopVideos')
   async getTopVideos() {
@@ -33,10 +35,10 @@ export class VideosController {
   @Get('stream/:id')
   @Header('Accept-Ranges', 'bytes')
   @Header('Content-Type', 'video/mp4')
-  @Header('Cache-Control', 'no-store')
+  @Header('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0')
   async asyncGetVideoStream(@Param('id') id: string, @Headers() headers, @Res() res: Response) {
     let video = await this.videosService.getVideoMetadata(id);
-    const videoPath = video.locationURL;
+    const videoPath = `assets/videos/${video.locationURL}`;
 
     const { size } = statSync(videoPath);
     const videoRange = headers.range;

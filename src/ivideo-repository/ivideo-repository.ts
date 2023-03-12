@@ -16,7 +16,7 @@ export class IvideoRepository<T> implements IGenericRepository<T>{
         uploadedUsername: "anonymous",
         views: Math.floor(Math.random() * 1000000),
         uploadDate: dateString,
-        locationURL: `assets/videos/1.mp4`,
+        locationURL: `1.mp4`,
       }
 
       this.videosArr.push(dummyVideo);
