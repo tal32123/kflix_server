@@ -37,8 +37,8 @@ export class VideosController {
   @Header('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0')
   async asyncGetVideoStream(@Param('id') id: string, @Headers() headers, @Res() res: Response) {
     let video = await this.videosService.getVideoMetadata(id);
-    this.videosService.streamVideo(video, headers,res);
-    
+    this.videosService.streamVideo(video, headers, res);
+
   }
 
   @Post('upload')

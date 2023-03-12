@@ -11,9 +11,9 @@ import { MockDataServices } from './mock-data-services/mock-data-services';
 @Module({
   imports: [],
   controllers: [AppController, VideosController],
-  providers: [AppService, 
-    VideosService, 
-    MetadataService, 
+  providers: [AppService,
+    VideosService,
+    MetadataService,
     CacheService,
     {
       provide: IDataServices,
@@ -23,4 +23,4 @@ import { MockDataServices } from './mock-data-services/mock-data-services';
   exports: [IDataServices],
 
 })
-export class AppModule {}
+export class AppModule { }

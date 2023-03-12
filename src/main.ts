@@ -6,7 +6,7 @@ async function bootstrap() {
 
   const app = await NestFactory.create(AppModule);
 
-      
+
 
   app.enableCors({
     origin: [
@@ -25,7 +25,7 @@ async function bootstrap() {
     methods: ["GET", "POST", "OPTIONS", "*"],
     credentials: true,
   });
-    
-    await app.listen(3000);
+
+  await app.listen(3000);
 }
 bootstrap();

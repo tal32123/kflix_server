@@ -6,14 +6,13 @@ import { IvideoRepository } from 'src/ivideo-repository/ivideo-repository';
 import { Video } from 'src/video/video.interface';
 
 @Injectable()
-export class MockDataServices 
-implements IDataServices, OnApplicationBootstrap
-{
+export class MockDataServices
+    implements IDataServices, OnApplicationBootstrap {
     videos: IGenericRepository<Video>;
 
     onApplicationBootstrap() {
         this.videos = new IvideoRepository<Video>();
     }
 
-    
+
 }
