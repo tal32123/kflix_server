@@ -1,4 +1,4 @@
-import { IGenericRepository } from "src/igeneric-repository/igeneric-repository";
+import { IGenericRepository } from "src/generic-repository/generic-repository";
 import { Video } from "src/video/video.interface";
 
 export class IvideoRepository<T> implements IGenericRepository<T>{

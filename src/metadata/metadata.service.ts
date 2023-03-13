@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { CacheService } from 'src/cache/cache.service';
-import { IDataServices } from 'src/idata-services/idata-services';
+import { IDataServices } from 'src/data-services/data-services';
 import { Video } from 'src/video/video.interface';
 
 @Injectable()

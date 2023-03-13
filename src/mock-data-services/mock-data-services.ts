@@ -1,8 +1,8 @@
 
 import { Injectable, OnApplicationBootstrap } from '@nestjs/common';
-import { IDataServices } from 'src/idata-services/idata-services';
-import { IGenericRepository } from 'src/igeneric-repository/igeneric-repository';
-import { IvideoRepository } from 'src/ivideo-repository/ivideo-repository';
+import { IDataServices } from 'src/data-services/data-services';
+import { IGenericRepository } from 'src/generic-repository/generic-repository';
+import { IvideoRepository } from 'src/video-repository/video-repository';
 import { Video } from 'src/video/video.interface';
 
 @Injectable()

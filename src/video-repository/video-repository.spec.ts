@@ -1,4 +1,4 @@
-import { IvideoRepository } from './ivideo-repository';
+import { IvideoRepository } from './video-repository';
 
 describe('IvideoRepository', () => {
   it('should be defined', () => {

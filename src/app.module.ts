@@ -5,7 +5,7 @@ import { VideosController } from './videos/videos.controller';
 import { VideosService } from './videos/videos.service';
 import { MetadataService } from './metadata/metadata.service';
 import { CacheService } from './cache/cache.service';
-import { IDataServices } from './idata-services/idata-services';
+import { IDataServices } from './data-services/data-services';
 import { MockDataServices } from './mock-data-services/mock-data-services';
 
 @Module({
